@@ -45,8 +45,6 @@
 //     Max speed >60M , and 374 SLICE if using Multiplexor bus
 //		or 150 SLICE if using tri-state bus.
 //
-// CVS Revision History
-// $Log
 `include "wb_conbus_defines.v"
 `define			dw	 32		// Data bus Width
 `define			aw	 32		// Address bus Width
