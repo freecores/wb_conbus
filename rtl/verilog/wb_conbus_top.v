@@ -9,42 +9,44 @@
 ////                                                             ////
 ////                                                             ////
 /////////////////////////////////////////////////////////////////////
-////                                                             ////
-//// Copyright (C) 2000-2002 Rudolf Usselmann                    ////
-////                         www.asics.ws                        ////
-////                         rudi@asics.ws                       ////
-////                                                             ////
-//// This source file may be used and distributed without        ////
-//// restriction provided that this copyright statement is not   ////
-//// removed from the file and that any derivative work contains ////
-//// the original copyright notice and the associated disclaimer.////
-////                                                             ////
-////     THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY     ////
-//// EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED   ////
-//// TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS   ////
-//// FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL THE AUTHOR      ////
-//// OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,         ////
-//// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES    ////
-//// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE   ////
-//// GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR        ////
-//// BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF  ////
-//// LIABILITY, WHETHER IN  CONTRACT, STRICT LIABILITY, OR TORT  ////
-//// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  ////
-//// OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE         ////
-//// POSSIBILITY OF SUCH DAMAGE.                                 ////
-////                                                             ////
-/////////////////////////////////////////////////////////////////////
-
+////                                                              ////
+//// Copyright (C) 2000 Authors and OPENCORES.ORG                 ////
+////                                                              ////
+//// This source file may be used and distributed without         ////
+//// restriction provided that this copyright statement is not    ////
+//// removed from the file and that any derivative work contains  ////
+//// the original copyright notice and the associated disclaimer. ////
+////                                                              ////
+//// This source file is free software; you can redistribute it   ////
+//// and/or modify it under the terms of the GNU Lesser General   ////
+//// Public License as published by the Free Software Foundation; ////
+//// either version 2.1 of the License, or (at your option) any   ////
+//// later version.                                               ////
+////                                                              ////
+//// This source is distributed in the hope that it will be       ////
+//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
+//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
+//// PURPOSE.  See the GNU Lesser General Public License for more ////
+//// details.                                                     ////
+////                                                              ////
+//// You should have received a copy of the GNU Lesser General    ////
+//// Public License along with this source; if not, download it   ////
+//// from http://www.opencores.org/lgpl.shtml                     ////
+////                                                              ////
+//////////////////////////////////////////////////////////////////////
 //
-//	1.8 masters and 8 slaves share bus Wishbone connection
-//	2.no priorty arbitor , 8 masters are processed in a round
-//	  robin way,
-//	3.if WB_USE_TRISTATE was defined, the share bus is a tristate
-//	  bus, and use less logic resource.
-//	4.wb_conbus was synthesis to XC2S100-5-PQ208 using synplify,
-//    Max speed >60M , and 374 SLICE if using Multiplexor bus
+//  Description
+//	1. Up to 8 masters and 8 slaves share bus Wishbone connection
+//	2. no priorty arbitor , 8 masters are processed in a round
+//	   robin way,
+//	3. if WB_USE_TRISTATE was defined, the share bus is a tristate
+//	   bus, and use less logic resource.
+//	4. wb_conbus was synthesis to XC2S100-5-PQ208 using synplify,
+//     Max speed >60M , and 374 SLICE if using Multiplexor bus
 //		or 150 SLICE if using tri-state bus.
 //
+// CVS Revision History
+// $Log
 `include "wb_conbus_defines.v"
 `define			dw	 32		// Data bus Width
 `define			aw	 32		// Address bus Width
@@ -571,7 +573,7 @@ endcase
 //	
 assign m0_ssel_dec[0] = (m0_adr_i[`aw -1 : `aw - s0_addr_w ] == s0_addr);
 assign m0_ssel_dec[1] = (m0_adr_i[`aw -1 : `aw - s1_addr_w ] == s1_addr);
-assign m0_ssel_dec[2] = (m0_adr_i[`dw -1 : `aw - s27_addr_w ] == s2_addr);
+assign m0_ssel_dec[2] = (m0_adr_i[`aw -1 : `aw - s27_addr_w ] == s2_addr);
 assign m0_ssel_dec[3] = (m0_adr_i[`aw -1 : `aw - s27_addr_w ] == s3_addr);
 assign m0_ssel_dec[4] = (m0_adr_i[`aw -1 : `aw - s27_addr_w ] == s4_addr);
 assign m0_ssel_dec[5] = (m0_adr_i[`aw -1 : `aw - s27_addr_w ] == s5_addr);
@@ -580,7 +582,7 @@ assign m0_ssel_dec[7] = (m0_adr_i[`aw -1 : `aw - s27_addr_w ] == s7_addr);
 
 assign m1_ssel_dec[0] = (m1_adr_i[`aw -1 : `aw - s0_addr_w ] == s0_addr);
 assign m1_ssel_dec[1] = (m1_adr_i[`aw -1 : `aw - s1_addr_w ] == s1_addr);
-assign m1_ssel_dec[2] = (m1_adr_i[`dw -1 : `aw - s27_addr_w ] == s2_addr);
+assign m1_ssel_dec[2] = (m1_adr_i[`aw -1 : `aw - s27_addr_w ] == s2_addr);
 assign m1_ssel_dec[3] = (m1_adr_i[`aw -1 : `aw - s27_addr_w ] == s3_addr);
 assign m1_ssel_dec[4] = (m1_adr_i[`aw -1 : `aw - s27_addr_w ] == s4_addr);
 assign m1_ssel_dec[5] = (m1_adr_i[`aw -1 : `aw - s27_addr_w ] == s5_addr);
@@ -589,7 +591,7 @@ assign m1_ssel_dec[7] = (m1_adr_i[`aw -1 : `aw - s27_addr_w ] == s7_addr);
 
 assign m2_ssel_dec[0] = (m2_adr_i[`aw -1 : `aw - s0_addr_w ] == s0_addr);
 assign m2_ssel_dec[1] = (m2_adr_i[`aw -1 : `aw - s1_addr_w ] == s1_addr);
-assign m2_ssel_dec[2] = (m2_adr_i[`dw -1 : `aw - s27_addr_w ] == s2_addr);
+assign m2_ssel_dec[2] = (m2_adr_i[`aw -1 : `aw - s27_addr_w ] == s2_addr);
 assign m2_ssel_dec[3] = (m2_adr_i[`aw -1 : `aw - s27_addr_w ] == s3_addr);
 assign m2_ssel_dec[4] = (m2_adr_i[`aw -1 : `aw - s27_addr_w ] == s4_addr);
 assign m2_ssel_dec[5] = (m2_adr_i[`aw -1 : `aw - s27_addr_w ] == s5_addr);
@@ -598,7 +600,7 @@ assign m2_ssel_dec[7] = (m2_adr_i[`aw -1 : `aw - s27_addr_w ] == s7_addr);
 
 assign m3_ssel_dec[0] = (m3_adr_i[`aw -1 : `aw - s0_addr_w ] == s0_addr);
 assign m3_ssel_dec[1] = (m3_adr_i[`aw -1 : `aw - s1_addr_w ] == s1_addr);
-assign m3_ssel_dec[2] = (m3_adr_i[`dw -1 : `aw - s27_addr_w ] == s2_addr);
+assign m3_ssel_dec[2] = (m3_adr_i[`aw -1 : `aw - s27_addr_w ] == s2_addr);
 assign m3_ssel_dec[3] = (m3_adr_i[`aw -1 : `aw - s27_addr_w ] == s3_addr);
 assign m3_ssel_dec[4] = (m3_adr_i[`aw -1 : `aw - s27_addr_w ] == s4_addr);
 assign m3_ssel_dec[5] = (m3_adr_i[`aw -1 : `aw - s27_addr_w ] == s5_addr);
@@ -607,7 +609,7 @@ assign m3_ssel_dec[7] = (m3_adr_i[`aw -1 : `aw - s27_addr_w ] == s7_addr);
 
 assign m4_ssel_dec[0] = (m4_adr_i[`aw -1 : `aw - s0_addr_w ] == s0_addr);
 assign m4_ssel_dec[1] = (m4_adr_i[`aw -1 : `aw - s1_addr_w ] == s1_addr);
-assign m4_ssel_dec[2] = (m4_adr_i[`dw -1 : `aw - s27_addr_w ] == s2_addr);
+assign m4_ssel_dec[2] = (m4_adr_i[`aw -1 : `aw - s27_addr_w ] == s2_addr);
 assign m4_ssel_dec[3] = (m4_adr_i[`aw -1 : `aw - s27_addr_w ] == s3_addr);
 assign m4_ssel_dec[4] = (m4_adr_i[`aw -1 : `aw - s27_addr_w ] == s4_addr);
 assign m4_ssel_dec[5] = (m4_adr_i[`aw -1 : `aw - s27_addr_w ] == s5_addr);
@@ -616,7 +618,7 @@ assign m4_ssel_dec[7] = (m4_adr_i[`aw -1 : `aw - s27_addr_w ] == s7_addr);
 
 assign m5_ssel_dec[0] = (m5_adr_i[`aw -1 : `aw - s0_addr_w ] == s0_addr);
 assign m5_ssel_dec[1] = (m5_adr_i[`aw -1 : `aw - s1_addr_w ] == s1_addr);
-assign m5_ssel_dec[2] = (m5_adr_i[`dw -1 : `aw - s27_addr_w ] == s2_addr);
+assign m5_ssel_dec[2] = (m5_adr_i[`aw -1 : `aw - s27_addr_w ] == s2_addr);
 assign m5_ssel_dec[3] = (m5_adr_i[`aw -1 : `aw - s27_addr_w ] == s3_addr);
 assign m5_ssel_dec[4] = (m5_adr_i[`aw -1 : `aw - s27_addr_w ] == s4_addr);
 assign m5_ssel_dec[5] = (m5_adr_i[`aw -1 : `aw - s27_addr_w ] == s5_addr);
@@ -625,7 +627,7 @@ assign m5_ssel_dec[7] = (m5_adr_i[`aw -1 : `aw - s27_addr_w ] == s7_addr);
 
 assign m6_ssel_dec[0] = (m6_adr_i[`aw -1 : `aw - s0_addr_w ] == s0_addr);
 assign m6_ssel_dec[1] = (m6_adr_i[`aw -1 : `aw - s1_addr_w ] == s1_addr);
-assign m6_ssel_dec[2] = (m6_adr_i[`dw -1 : `aw - s27_addr_w ] == s2_addr);
+assign m6_ssel_dec[2] = (m6_adr_i[`aw -1 : `aw - s27_addr_w ] == s2_addr);
 assign m6_ssel_dec[3] = (m6_adr_i[`aw -1 : `aw - s27_addr_w ] == s3_addr);
 assign m6_ssel_dec[4] = (m6_adr_i[`aw -1 : `aw - s27_addr_w ] == s4_addr);
 assign m6_ssel_dec[5] = (m6_adr_i[`aw -1 : `aw - s27_addr_w ] == s5_addr);
@@ -634,7 +636,7 @@ assign m6_ssel_dec[7] = (m6_adr_i[`aw -1 : `aw - s27_addr_w ] == s7_addr);
 
 assign m7_ssel_dec[0] = (m7_adr_i[`aw -1 : `aw - s0_addr_w ] == s0_addr);
 assign m7_ssel_dec[1] = (m7_adr_i[`aw -1 : `aw - s1_addr_w ] == s1_addr);
-assign m7_ssel_dec[2] = (m7_adr_i[`dw -1 : `aw - s27_addr_w ] == s2_addr);
+assign m7_ssel_dec[2] = (m7_adr_i[`aw -1 : `aw - s27_addr_w ] == s2_addr);
 assign m7_ssel_dec[3] = (m7_adr_i[`aw -1 : `aw - s27_addr_w ] == s3_addr);
 assign m7_ssel_dec[4] = (m7_adr_i[`aw -1 : `aw - s27_addr_w ] == s4_addr);
 assign m7_ssel_dec[5] = (m7_adr_i[`aw -1 : `aw - s27_addr_w ] == s5_addr);
